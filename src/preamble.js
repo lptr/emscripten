@@ -663,7 +663,9 @@ assert(HEAPU8[0] === 255 && HEAPU8[3] === 0, 'Typed arrays 2 must be run on a li
 #endif
 #else
 // Make sure that our HEAP is implemented as a flat array.
-HEAP = []; // Hinting at the size with |new Array(TOTAL_MEMORY)| should help in theory but makes v8 much slower
+ // Hinting at the size with |new Array(TOTAL_MEMORY)| should help in theory but makes v8 much slower
+ // Still we are going to use this for old IE -- newert browsers should use TypedArrays anyway
+HEAP = new Array(TOTAL_MEMORY);
 for (var i = 0; i < FAST_MEMORY; i++) {
   HEAP[i] = 0; // XXX We do *not* use {{| makeSetValue(0, 'i', 0, 'null') |}} here, since this is done just to optimize runtime speed
 }
