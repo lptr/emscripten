@@ -458,6 +458,9 @@ function allocate(slab, types, allocator, ptr) {
   }
 
   if (zeroinit) {
+    if (Module['NO_ZERO_INIT'] === true) {
+      return ret;
+    }
     var ptr = ret, stop;
 #if USE_TYPED_ARRAYS == 2
     assert((ret & 3) == 0);
